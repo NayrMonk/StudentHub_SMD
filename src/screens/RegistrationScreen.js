@@ -4,7 +4,7 @@ import Card from "../components/Card";
 import TimetableGrid from "../components/TimetableGrid";
 import { useSettings } from "../context/SettingsContext";
 import { PROFESSORS, avgRating, DAYS } from "../data/mockData";
-import { timesOverlap } from "../utils/grades";
+import { timesOverlap, formatHour } from "../utils/grades";
 
 export default function RegistrationScreen({ courses, registeredIds, onToggle }) {
   const { colors, scale } = useSettings();
@@ -50,7 +50,7 @@ export default function RegistrationScreen({ courses, registeredIds, onToggle })
                   {professor?.name} · {professor?.department}
                 </Text>
                 <Text style={{ color: colors.subtext, fontSize: 12 * scale.font, marginTop: 2 }}>
-                  {DAYS[course.schedule.day]} {course.schedule.start}:00–{course.schedule.end}:00 · {course.credits} cr
+                  {DAYS[course.schedule.day]} {formatHour(course.schedule.start)}–{formatHour(course.schedule.end)} · {course.credits} cr
                 </Text>
                 <Text style={{ color: colors.primary, fontSize: 12 * scale.font, marginTop: 4, fontWeight: "600" }}>
                   ★ {rating.toFixed(1)} / 5 ({professor?.reviews.length} reviews)

@@ -34,3 +34,10 @@ export function statusFor(percent) {
 export function timesOverlap(a, b) {
   return a.day === b.day && a.start < b.end && b.start < a.end;
 }
+
+// 10.5 -> "10:30"; 9 -> "9:00"
+export function formatHour(decimalHour) {
+  const h = Math.floor(decimalHour);
+  const m = Math.round((decimalHour - h) * 60);
+  return `${h}:${String(m).padStart(2, "0")}`;
+}
