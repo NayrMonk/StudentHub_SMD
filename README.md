@@ -45,6 +45,10 @@ src/
 App.js                     top-level state + view switching (no router)
 ```
 
+## Demo
+
+See [`DemoVideo.mp4`](./DemoVideo.mp4) in this repo for a walkthrough of all four screens.
+
 ## Setup & run
 
 Requires Node.js and the Expo Go app (iOS/Android) or an emulator.
