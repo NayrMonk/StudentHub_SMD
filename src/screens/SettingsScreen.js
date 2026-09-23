@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, ScrollView, Pressable } from "react-native";
+import { View, Text, ScrollView, Pressable, TextInput } from "react-native";
 import Card from "../components/Card";
 import { useSettings } from "../context/SettingsContext";
 
@@ -42,11 +42,73 @@ function OptionRow({ options, value, onChange, colors, scale }) {
   );
 }
 
+function ProfileField({ label, value, onChangeText, placeholder, colors, scale }) {
+  return (
+    <View style={{ marginBottom: 10 * scale.spacing }}>
+      <Text style={{ color: colors.subtext, fontSize: 11 * scale.font, marginBottom: 4 }}>{label}</Text>
+      <TextInput
+        value={value}
+        onChangeText={onChangeText}
+        placeholder={placeholder}
+        placeholderTextColor={colors.subtext}
+        style={{
+          borderWidth: 1,
+          borderColor: colors.border,
+          borderRadius: 8,
+          paddingHorizontal: 10,
+          paddingVertical: 8 * scale.spacing,
+          color: colors.text,
+          fontSize: 13 * scale.font,
+        }}
+      />
+    </View>
+  );
+}
+
 export default function SettingsScreen() {
-  const { colors, scale, themeChoice, setThemeChoice, density, setDensity } = useSettings();
+  const { colors, scale, themeChoice, setThemeChoice, density, setDensity, profile, setProfile, storageError } = useSettings();
 
   return (
     <ScrollView contentContainerStyle={{ padding: 16 }}>
+      {storageError ? (
+        <Card style={{ borderColor: colors.warning }}>
+          <Text style={{ color: colors.warning, fontSize: 12 * scale.font, fontWeight: "600" }}>
+            Preferences couldn't be saved to device storage ({storageError}). Your choices still work for this session.
+          </Text>
+        </Card>
+      ) : null}
+
+      <Card>
+        <Text style={{ color: colors.text, fontSize: 15 * scale.font, fontWeight: "700", marginBottom: 4 }}>Who's using this</Text>
+        <Text style={{ color: colors.subtext, fontSize: 12 * scale.font, marginBottom: 12 }}>
+          Shown on your dashboard. Stored on this device only.
+        </Text>
+        <ProfileField
+          label="Name"
+          value={profile.name}
+          onChangeText={(name) => setProfile((p) => ({ ...p, name }))}
+          placeholder="e.g. Ayesha Khan"
+          colors={colors}
+          scale={scale}
+        />
+        <ProfileField
+          label="Student ID"
+          value={profile.studentId}
+          onChangeText={(studentId) => setProfile((p) => ({ ...p, studentId }))}
+          placeholder="e.g. 22F-1234"
+          colors={colors}
+          scale={scale}
+        />
+        <ProfileField
+          label="Program"
+          value={profile.program}
+          onChangeText={(program) => setProfile((p) => ({ ...p, program }))}
+          placeholder="e.g. BS Computer Science"
+          colors={colors}
+          scale={scale}
+        />
+      </Card>
+
       <Card>
         <Text style={{ color: colors.text, fontSize: 15 * scale.font, fontWeight: "700", marginBottom: 4 }}>Appearance</Text>
         <Text style={{ color: colors.subtext, fontSize: 12 * scale.font, marginBottom: 12 }}>

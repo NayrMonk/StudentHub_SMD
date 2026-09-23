@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, Pressable } from "react-native";
 import { useSettings } from "../context/SettingsContext";
 import { DAYS } from "../data/mockData";
 
@@ -9,7 +9,7 @@ const HOUR_HEIGHT = 44;
 
 // Custom weekly schedule grid — chart-kit has no Gantt chart, so this is a plain
 // data-driven layout component instead (positions blocks by day/start/end).
-export default function TimetableGrid({ courses }) {
+export default function TimetableGrid({ courses, onPressCourse }) {
   const { colors, scale } = useSettings();
   const hours = Array.from({ length: END_HOUR - START_HOUR }, (_, i) => START_HOUR + i);
 
@@ -42,8 +42,9 @@ export default function TimetableGrid({ courses }) {
                     const top = (c.schedule.start - START_HOUR) * HOUR_HEIGHT * scale.spacing;
                     const height = (c.schedule.end - c.schedule.start) * HOUR_HEIGHT * scale.spacing;
                     return (
-                      <View
+                      <Pressable
                         key={c.id}
+                        onPress={() => onPressCourse && onPressCourse(c)}
                         style={{
                           position: "absolute",
                           top,
@@ -58,7 +59,7 @@ export default function TimetableGrid({ courses }) {
                         <Text style={{ color: "#fff", fontSize: 10, fontWeight: "700" }} numberOfLines={1}>
                           {c.code}
                         </Text>
-                      </View>
+                      </Pressable>
                     );
                   })}
               </View>

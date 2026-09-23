@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, ScrollView, Pressable } from "react-native";
 import Card from "../components/Card";
 import TimetableGrid from "../components/TimetableGrid";
+import CourseDetailModal from "../components/CourseDetailModal";
 import { useSettings } from "../context/SettingsContext";
 import { PROFESSORS, avgRating, DAYS } from "../data/mockData";
 import { timesOverlap, formatHour } from "../utils/grades";
 
 export default function RegistrationScreen({ courses, registeredIds, onToggle }) {
   const { colors, scale } = useSettings();
+  const [selectedCourse, setSelectedCourse] = useState(null);
   const registered = courses.filter((c) => registeredIds.includes(c.id));
 
   const withConflicts = registered.map((c) => ({
@@ -23,7 +25,7 @@ export default function RegistrationScreen({ courses, registeredIds, onToggle })
         {registered.length === 0 ? (
           <Text style={{ color: colors.subtext, fontSize: 13 * scale.font }}>Register for a course below to build your schedule.</Text>
         ) : (
-          <TimetableGrid courses={withConflicts} />
+          <TimetableGrid courses={withConflicts} onPressCourse={setSelectedCourse} />
         )}
         {conflictIds.size > 0 && (
           <Text style={{ color: colors.danger, fontSize: 12 * scale.font, marginTop: 8 }}>
@@ -42,7 +44,7 @@ export default function RegistrationScreen({ courses, registeredIds, onToggle })
         return (
           <Card key={course.id}>
             <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-              <View style={{ flex: 1 }}>
+              <Pressable style={{ flex: 1 }} onPress={() => setSelectedCourse(course)}>
                 <Text style={{ color: colors.text, fontSize: 14 * scale.font, fontWeight: "700" }}>
                   {course.code} — {course.name}
                 </Text>
@@ -58,7 +60,7 @@ export default function RegistrationScreen({ courses, registeredIds, onToggle })
                 {conflicts && (
                   <Text style={{ color: colors.danger, fontSize: 11 * scale.font, marginTop: 4 }}>Conflicts with another registered course</Text>
                 )}
-              </View>
+              </Pressable>
               <Pressable
                 onPress={() => onToggle(course.id)}
                 style={{
@@ -79,6 +81,8 @@ export default function RegistrationScreen({ courses, registeredIds, onToggle })
           </Card>
         );
       })}
+
+      <CourseDetailModal course={selectedCourse} onClose={() => setSelectedCourse(null)} />
     </ScrollView>
   );
 }

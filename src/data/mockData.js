@@ -57,16 +57,22 @@ export const COURSES = [
     professorId: "p1",
     schedule: { day: 0, start: 9, end: 10.5 },
     categories: [
-      { id: "hw", name: "Homework", weight: 20, items: [
-        { id: "hw1", name: "HW 1", score: 18, max: 20 },
-        { id: "hw2", name: "HW 2", score: 17, max: 20 },
-      ]},
-      { id: "quiz", name: "Quizzes", weight: 15, items: [
-        { id: "q1", name: "Quiz 1", score: 8, max: 10 },
-      ]},
-      { id: "mid", name: "Midterm", weight: 25, items: [
-        { id: "mid1", name: "Midterm Exam", score: 42, max: 50 },
-      ]},
+      {
+        id: "hw", name: "Homework", weight: 20, items: [
+          { id: "hw1", name: "HW 1", score: 18, max: 20 },
+          { id: "hw2", name: "HW 2", score: 17, max: 20 },
+        ]
+      },
+      {
+        id: "quiz", name: "Quizzes", weight: 15, items: [
+          { id: "q1", name: "Quiz 1", score: 8, max: 10 },
+        ]
+      },
+      {
+        id: "mid", name: "Midterm", weight: 25, items: [
+          { id: "mid1", name: "Midterm Exam", score: 42, max: 50 },
+        ]
+      },
       { id: "final", name: "Final", weight: 40, items: [] },
     ],
   },
@@ -78,13 +84,17 @@ export const COURSES = [
     professorId: "p2",
     schedule: { day: 1, start: 11, end: 12.5 },
     categories: [
-      { id: "hw", name: "Homework", weight: 20, items: [
-        { id: "hw1", name: "HW 1", score: 15, max: 20 },
-      ]},
+      {
+        id: "hw", name: "Homework", weight: 20, items: [
+          { id: "hw1", name: "HW 1", score: 15, max: 20 },
+        ]
+      },
       { id: "quiz", name: "Quizzes", weight: 10, items: [] },
-      { id: "mid", name: "Midterm", weight: 30, items: [
-        { id: "mid1", name: "Midterm Exam", score: 33, max: 50 },
-      ]},
+      {
+        id: "mid", name: "Midterm", weight: 30, items: [
+          { id: "mid1", name: "Midterm Exam", score: 33, max: 50 },
+        ]
+      },
       { id: "final", name: "Final", weight: 40, items: [] },
     ],
   },
@@ -96,17 +106,23 @@ export const COURSES = [
     professorId: "p3",
     schedule: { day: 0, start: 13, end: 14.5 },
     categories: [
-      { id: "hw", name: "Homework", weight: 15, items: [
-        { id: "hw1", name: "HW 1", score: 19, max: 20 },
-        { id: "hw2", name: "HW 2", score: 20, max: 20 },
-      ]},
-      { id: "quiz", name: "Quizzes", weight: 15, items: [
-        { id: "q1", name: "Quiz 1", score: 9, max: 10 },
-        { id: "q2", name: "Quiz 2", score: 9.5, max: 10 },
-      ]},
-      { id: "mid", name: "Midterm", weight: 30, items: [
-        { id: "mid1", name: "Midterm Exam", score: 47, max: 50 },
-      ]},
+      {
+        id: "hw", name: "Homework", weight: 15, items: [
+          { id: "hw1", name: "HW 1", score: 19, max: 20 },
+          { id: "hw2", name: "HW 2", score: 20, max: 20 },
+        ]
+      },
+      {
+        id: "quiz", name: "Quizzes", weight: 15, items: [
+          { id: "q1", name: "Quiz 1", score: 9, max: 10 },
+          { id: "q2", name: "Quiz 2", score: 9.5, max: 10 },
+        ]
+      },
+      {
+        id: "mid", name: "Midterm", weight: 30, items: [
+          { id: "mid1", name: "Midterm Exam", score: 47, max: 50 },
+        ]
+      },
       { id: "final", name: "Final", weight: 40, items: [] },
     ],
   },
@@ -118,10 +134,10 @@ export const COURSES = [
     professorId: "p4",
     schedule: { day: 2, start: 9, end: 10.5 },
     categories: [
-      { id: "hw", name: "Homework", weight: 20, items: []},
-      { id: "quiz", name: "Quizzes", weight: 10, items: []},
-      { id: "mid", name: "Midterm", weight: 30, items: []},
-      { id: "final", name: "Final", weight: 40, items: []},
+      { id: "hw", name: "Homework", weight: 20, items: [] },
+      { id: "quiz", name: "Quizzes", weight: 10, items: [] },
+      { id: "mid", name: "Midterm", weight: 30, items: [] },
+      { id: "final", name: "Final", weight: 40, items: [] },
     ],
   },
   {
@@ -132,14 +148,18 @@ export const COURSES = [
     professorId: "p1",
     schedule: { day: 0, start: 9, end: 10.5 }, // deliberately overlaps CS301 -> conflict demo
     categories: [
-      { id: "hw", name: "Homework", weight: 20, items: [
-        { id: "hw1", name: "HW 1", score: 20, max: 20 },
-      ]},
-      { id: "quiz", name: "Quizzes", weight: 15, items: []},
-      { id: "mid", name: "Midterm", weight: 25, items: [
-        { id: "mid1", name: "Midterm Exam", score: 40, max: 50 },
-      ]},
-      { id: "final", name: "Final", weight: 40, items: []},
+      {
+        id: "hw", name: "Homework", weight: 20, items: [
+          { id: "hw1", name: "HW 1", score: 20, max: 20 },
+        ]
+      },
+      { id: "quiz", name: "Quizzes", weight: 15, items: [] },
+      {
+        id: "mid", name: "Midterm", weight: 25, items: [
+          { id: "mid1", name: "Midterm Exam", score: 40, max: 50 },
+        ]
+      },
+      { id: "final", name: "Final", weight: 40, items: [] },
     ],
   },
   {
@@ -150,16 +170,22 @@ export const COURSES = [
     professorId: "p2",
     schedule: { day: 3, start: 14, end: 15.5 },
     categories: [
-      { id: "hw", name: "Homework", weight: 20, items: [
-        { id: "hw1", name: "HW 1", score: 16, max: 20 },
-      ]},
-      { id: "quiz", name: "Quizzes", weight: 15, items: [
-        { id: "q1", name: "Quiz 1", score: 7, max: 10 },
-      ]},
-      { id: "mid", name: "Midterm", weight: 25, items: [
-        { id: "mid1", name: "Midterm Exam", score: 38, max: 50 },
-      ]},
-      { id: "final", name: "Final", weight: 40, items: []},
+      {
+        id: "hw", name: "Homework", weight: 20, items: [
+          { id: "hw1", name: "HW 1", score: 16, max: 20 },
+        ]
+      },
+      {
+        id: "quiz", name: "Quizzes", weight: 15, items: [
+          { id: "q1", name: "Quiz 1", score: 7, max: 10 },
+        ]
+      },
+      {
+        id: "mid", name: "Midterm", weight: 25, items: [
+          { id: "mid1", name: "Midterm Exam", score: 38, max: 50 },
+        ]
+      },
+      { id: "final", name: "Final", weight: 40, items: [] },
     ],
   },
 ];

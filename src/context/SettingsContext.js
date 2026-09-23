@@ -37,30 +37,47 @@ const DENSITY_SCALE = {
   spacious: { spacing: 1.25, font: 1.12 },
 };
 
+const DEFAULT_PROFILE = { name: "", studentId: "", program: "" };
+
 const SettingsContext = createContext(null);
 
 export function SettingsProvider({ children }) {
   const systemScheme = useColorScheme();
   const [themeChoice, setThemeChoice] = useState("system"); // 'light' | 'dark' | 'system'
   const [density, setDensity] = useState("normal"); // 'compact' | 'normal' | 'spacious'
+  const [profile, setProfile] = useState(DEFAULT_PROFILE);
   const [loaded, setLoaded] = useState(false);
+  const [storageError, setStorageError] = useState(null);
 
   useEffect(() => {
+    let cancelled = false;
     AsyncStorage.getItem(STORAGE_KEY)
       .then((raw) => {
-        if (raw) {
-          const saved = JSON.parse(raw);
-          if (saved.themeChoice) setThemeChoice(saved.themeChoice);
-          if (saved.density) setDensity(saved.density);
-        }
+        if (cancelled || !raw) return;
+        const saved = JSON.parse(raw);
+        if (saved.themeChoice) setThemeChoice(saved.themeChoice);
+        if (saved.density) setDensity(saved.density);
+        if (saved.profile) setProfile({ ...DEFAULT_PROFILE, ...saved.profile });
       })
-      .finally(() => setLoaded(true));
+      .catch((err) => {
+        // Storage can be unavailable (native module missing, disk full, private mode).
+        // Preferences just fall back to in-memory defaults for this session instead of crashing.
+        if (!cancelled) setStorageError(String(err?.message || err));
+      })
+      .finally(() => {
+        if (!cancelled) setLoaded(true);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
     if (!loaded) return;
-    AsyncStorage.setItem(STORAGE_KEY, JSON.stringify({ themeChoice, density }));
-  }, [themeChoice, density, loaded]);
+    AsyncStorage.setItem(STORAGE_KEY, JSON.stringify({ themeChoice, density, profile })).catch((err) => {
+      setStorageError(String(err?.message || err));
+    });
+  }, [themeChoice, density, profile, loaded]);
 
   const resolvedScheme = themeChoice === "system" ? systemScheme || "light" : themeChoice;
 
@@ -70,11 +87,14 @@ export function SettingsProvider({ children }) {
       setThemeChoice,
       density,
       setDensity,
+      profile,
+      setProfile,
+      storageError,
       scheme: resolvedScheme,
       colors: PALETTES[resolvedScheme],
       scale: DENSITY_SCALE[density],
     }),
-    [themeChoice, density, resolvedScheme]
+    [themeChoice, density, profile, storageError, resolvedScheme]
   );
 
   return <SettingsContext.Provider value={value}>{children}</SettingsContext.Provider>;

@@ -17,7 +17,7 @@ const TABS = [
 ];
 
 function AppShell() {
-  const { colors, scheme } = useSettings();
+  const { colors, scheme, profile } = useSettings();
   const [activeView, setActiveView] = useState("dashboard");
   const [courses, setCourses] = useState(COURSES);
   const [registeredIds, setRegisteredIds] = useState(DEFAULT_REGISTERED);
@@ -48,8 +48,12 @@ function AppShell() {
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       <StatusBar barStyle={scheme === "dark" ? "light-content" : "dark-content"} />
       <View style={{ paddingHorizontal: 16, paddingTop: 8, paddingBottom: 4 }}>
-        <Text style={{ color: colors.text, fontSize: 20, fontWeight: "800" }}>Student Hub</Text>
-        <Text style={{ color: colors.subtext, fontSize: 12 }}>Grades, registration & timetable</Text>
+        <Text style={{ color: colors.text, fontSize: 20, fontWeight: "800" }}>
+          {profile.name ? `Hi, ${profile.name.split(" ")[0]}` : "Student Hub"}
+        </Text>
+        <Text style={{ color: colors.subtext, fontSize: 12 }}>
+          {profile.program || "Grades, registration & timetable"}
+        </Text>
       </View>
 
       <TopTabs tabs={TABS} active={activeView} onChange={setActiveView} />
