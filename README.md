@@ -47,7 +47,9 @@ App.js                     top-level state + view switching (no router)
 
 ## Demo
 
-See [`DemoVideo.mp4`](./DemoVideo.mp4) in this repo for a walkthrough of all four screens.
+<video src="https://raw.githubusercontent.com/NayrMonk/StudentHub_SMD/master/DemoVideo.mp4" controls width="360">
+  Your browser can't play this video inline — see <a href="./DemoVideo.mp4">DemoVideo.mp4</a> directly.
+</video>
 
 ## Setup & run
 
