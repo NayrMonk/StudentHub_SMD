@@ -47,7 +47,11 @@ App.js                     top-level state + view switching (no router)
 
 ## Demo
 
-<video src="https://raw.githubusercontent.com/NayrMonk/StudentHub_SMD/master/DemoVideo.mp4" controls width="360">
+<video src="https://raw.githu
+
+https://github.com/user-attachments/assets/ecb55111-8578-4c68-adcc-c4d0302f6a9c
+
+busercontent.com/NayrMonk/StudentHub_SMD/master/DemoVideo.mp4" controls width="360">
   Your browser can't play this video inline — see <a href="./DemoVideo.mp4">DemoVideo.mp4</a> directly.
 </video>
 
