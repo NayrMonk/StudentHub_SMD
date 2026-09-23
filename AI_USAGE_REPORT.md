@@ -1,11 +1,10 @@
 # AI Usage Report
 
-**Course:** _[fill in — e.g. Software for Mobile Devices]_
+**Course:** Software for Mobile Devices
 **Assignment:** Assignment 1 — Open-Ended, AI-Assisted Application Development (Student Hub)
-**Student Name:** _[fill in]_
-**Registration No.:** _[fill in]_
-**Date:** _[fill in]_
-
+**Student Name:** Muhammad Umer
+**Registration No.:** 23i-6129
+**Date:** 9/23/2026
 ---
 
 ## 1. AI Tool(s) Used
@@ -51,13 +50,30 @@ Claude Code (Claude Sonnet 5), Anthropic's agentic CLI coding assistant — used
 
 ## 6. My Understanding
 
-_[Write this section yourself before submitting — it must be in your own words for the viva. Suggested points to cover, since you should be able to explain each one live:]_
+_My understanding is that this app is a simple React Native student academic management app where most of the main state is controlled from `App.js`.
 
-- How `activeView` state in `App.js` drives conditional rendering of the four screens, and why this satisfies the "no navigation library" rule instead of using React Navigation.
-- How `computeFinalPercent()` in `grades.js` weights only categories that have graded items, and why an empty category doesn't wrongly zero out the average.
-- How `SettingsContext` provides theme/density/profile to every screen via React Context instead of prop-drilling, and why the AsyncStorage read/write are wrapped in `.catch()`.
-- How `timesOverlap()` detects schedule conflicts by comparing `day`/`start`/`end`, and how that result flows into both the timetable's red blocks and the catalog's warning text.
-- Why the weekly timetable is a hand-built grid (`TimetableGrid.js`) rather than a `react-native-chart-kit` chart.
+In `App.js`, I have three main pieces of state: `activeView`, `courses`, and `registeredIds`. I use `activeView` to decide which screen is currently displayed. Instead of using a navigation library or router, I simply change the value of `activeView` when a user taps one of the top tabs, and then I conditionally render the Dashboard, Grades, Registration, or Settings screen.
+
+The `courses` state starts as a copy of the course data from `mockData.js`. I keep it in state because the course grades can be changed by the user. The `registeredIds` state stores the IDs of the courses that the user has registered for, so I can easily determine which courses should appear in the dashboard and timetable.
+
+For the data itself, I use static mock data instead of a backend or API. The `PROFESSORS` array contains professor information and reviews, while the `COURSES` array contains course details, schedules, grade categories, and graded items. Each course schedule has a day, start time, and end time, while the grading structure contains categories such as homework, quizzes, midterms, and finals.
+
+The main grade calculation is handled by `computeFinalPercent()`. I understand that it only includes categories that already contain graded items. For example, if the final exam has not been graded yet, its weight is not included in the current percentage. This gives a more accurate representation of the student's current grade instead of treating ungraded work as zero.
+
+The `timesOverlap()` function handles schedule conflicts. It checks whether two courses are on the same day and whether their time ranges overlap. I use this during registration to identify conflicts between courses.
+
+The Dashboard is mainly a read-only summary. I filter the course list using `registeredIds`, calculate the grades of the registered courses, and display them using charts. I also use the static GPA history for the line chart and calculate an average professor rating for the registered courses.
+
+The Grades screen works like a live grade calculator. When I expand a course, I can see its grading categories and individual assessment scores. If I change a score, the update function in `App.js` finds the correct course, category, and item and updates it immutably. Since the `courses` state changes, React automatically re-renders the screen and recalculates the percentage, letter grade, and status. This makes the screen useful as a what-if calculator.
+
+The Registration screen has two main parts. The first is the timetable, where I manually position course blocks based on their start and end times. I do this with normal React Native `View` components and absolute positioning instead of using a charting library. The second part is the course catalog, where I can register for or drop a course. When I register for a course, its ID is added to `registeredIds`, and when I drop it, the ID is removed. I also check all registered courses for timetable conflicts and highlight conflicting courses.
+
+The Settings screen works differently from the other screens because I use `SettingsContext` instead of passing everything through props. The context stores the selected theme, display density, and profile information. I can access these settings from anywhere using `useSettings()`. I also save the settings in `AsyncStorage`, so they remain available after the app is restarted. If storage fails, the app still works for the current session instead of crashing.
+
+The `CourseDetailModal` is a reusable modal component. I pass a course object into it, and it uses that course to find and display the related professor information and reviews. Because the same course data structure is used everywhere, I can open the same modal from different parts of the Registration screen.
+
+Overall, my understanding is that the app keeps the architecture intentionally simple. I use `App.js` for the main academic state, `SettingsContext` for user preferences, utility functions for the main grade and timetable logic, and the remaining components mainly for presentation and user interaction. There is currently no backend, database, API, or navigation framework, so the app is easy to follow and the flow of data is straightforward.
+
 
 ## 7. Verification and Testing
 
@@ -72,7 +88,8 @@ _[Write this section yourself before submitting — it must be in your own words
 
 ## 8. Reflection
 
-_[Write this section yourself — a couple of honest sentences on what you personally took away from using an AI agent for this assignment: e.g. what it sped up, where you still had to think/decide/debug yourself, and what you'd do differently next time.]_
+What I took Personallly is that AI can be a great tool for making a proper app
+but it still needs proper way of checking if the agent is doing what u intended it to do. It is much faster at doing coding it self and auditing but to have code which is bug free and is as per your requirement is hard to get from the first go. What I will do differently is define my prompts and requirements create a Requirements.md file so that the AI-Coding tools can use that and create a proper app which is as per your requirement and is bug free. Usign SRS with GANT chart can help AI focus on phase development and help it perfect phases.
 
 ---
 
@@ -80,6 +97,6 @@ _[Write this section yourself — a couple of honest sentences on what you perso
 
 I confirm that I have used AI tools only as a development assistant and that I understand the code submitted as part of this assignment. I am able to explain and demonstrate the functionality of my application.
 
-**Student Name:** _______________________________
-**Signature:** _______________________________
-**Date:** _______________________________
+**Student Name:** Muhammad umer
+**Signature:** Muhammad Umer
+**Date:** 9/23/2026
